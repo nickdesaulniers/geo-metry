@@ -3347,7 +3347,6 @@ function created () {
   aspectRatio = width / height;
 
   color = colorString.getRgba(this.getAttribute('color'));
-  console.log(color);
 
   var gl = canvas.getContext('webgl', { preserveDrawingBuffer: true, });
   loader = new WebGLShaderLoader(gl);
