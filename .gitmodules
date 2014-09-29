@@ -1,0 +1,12 @@
+[submodule "document-register-element"]
+	path = document-register-element
+	url = https://github.com/WebReflection/document-register-element.git
+[submodule "prims"]
+	path = prims
+	url = https://github.com/nickdesaulniers/prims.git
+[submodule "webgl-shader-loader"]
+	path = webgl-shader-loader
+	url = https://github.com/nickdesaulniers/webgl-shader-loader.git
+[submodule "gl-matrix"]
+	path = gl-matrix
+	url = https://github.com/toji/gl-matrix.git
