@@ -122,7 +122,7 @@ function created () {
   canvas.height = height;
   aspectRatio = width / height;
 
-  var gl = canvas.getContext('webgl');
+  var gl = canvas.getContext('webgl', { preserveDrawingBuffer: true, });
   loader = new WebGLShaderLoader(gl);
   loader.loadFromStr(vertexShaderSrc, fragmentShaderSrc, glCreated);
   this.appendChild(canvas);

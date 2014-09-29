@@ -1,6 +1,8 @@
 #geo-metry
 Custom HTML elements for 3D geometries.
 
+![example](canvas.png)
+
 ##Usage
 In your HTML include the JS:
 
