@@ -20,6 +20,7 @@ void main () {\n\
 var fragmentShaderSrc = '\
 precision mediump float;\n\
 \n\
+uniform vec4 uColor;\n\
 varying vec3 vNormal;\n\
 varying vec3 vPosition;\n\
 \n\
@@ -34,10 +35,10 @@ void main () {\n\
   float nDotL = clamp(dot(n, normalize(l)) / length(l) * 2.0, 0.0, 1.0);\n\
   vec3 color = abs(n);\n\
 \n\
-  gl_FragColor = vec4(color, 1.0);\n\
+  gl_FragColor = uColor;\n\
 }';
 
-var loader, aspectRatio; // :(
+var loader, aspectRatio, color; // :(
 var d = degPerPeriod(10);
 
 function glCreated (errors, program, gl) {
@@ -48,6 +49,7 @@ function glCreated (errors, program, gl) {
 
   var uniforms = loader.getUniforms(gl, program);
   var modelMatrix = setUniforms(gl, uniforms);
+  gl.uniform4fv(uniforms.uColor, color);
 
   gl.clearColor(0.0, 0.0, 0.0, 0.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -114,13 +116,15 @@ function created () {
   console.log('here I am ^_^ ');
   //console.log('with content: ', this.textContent);
   console.log(this);
-  var width = parseInt(this.getAttribute("width"), 10);
-  var height = parseInt(this.getAttribute("height"), 10);
+  var width = parseInt(this.getAttribute('width'), 10);
+  var height = parseInt(this.getAttribute('height'), 10);
   if (isNaN(width) || isNaN(height)) return console.error("width and height attributes required");
   var canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
   aspectRatio = width / height;
+
+  color = colorString.getRgba(this.getAttribute('color'));
 
   var gl = canvas.getContext('webgl', { preserveDrawingBuffer: true, });
   loader = new WebGLShaderLoader(gl);

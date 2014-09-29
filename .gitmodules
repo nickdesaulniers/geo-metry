@@ -10,3 +10,6 @@
 [submodule "gl-matrix"]
 	path = gl-matrix
 	url = https://github.com/toji/gl-matrix.git
+[submodule "color-string"]
+	path = color-string
+	url = https://github.com/harthur/color-string

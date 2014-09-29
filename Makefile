@@ -5,6 +5,7 @@ SOURCES := \
 	gl-matrix/src/gl-matrix/common.js \
 	gl-matrix/src/gl-matrix/mat4.js \
 	gl-matrix/src/gl-matrix/vec3.js \
+	color-string/color-string-0.2.1.js \
 	src/3d-tags.js
 
 default:
