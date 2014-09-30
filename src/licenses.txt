@@ -1,0 +1,27 @@
+/* This project (geo-metry) is Copyright 2014 Nick Desaulniers licensed under
+ * the Beerware License.
+ * https://raw.githubusercontent.com/nickdesaulniers/geo-metry/master/LICENSE.md
+ *
+ * This project contains Free and Open Source code from the following authors:
+ *
+ * webgl-shader-loader is Copyright 2014 Nick Desaulniers dual licensed under
+ * the Beerware License & MPL2.0.
+ * https://raw.githubusercontent.com/nickdesaulniers/webgl-shader-loader/master/LICENSE
+ *
+ * prims is Copywrite 2014 Nick Desaulniers licensed under the Beerware
+ * License.
+ * https://raw.githubusercontent.com/nickdesaulniers/prims/master/LICENSE.md
+ *
+ * document-register-element is Copywrite 2014 WebReflection licensed under the
+ * MIT license.
+ * https://raw.githubusercontent.com/WebReflection/document-register-element/master/LICENSE.txt
+ *
+ * gl-matrix is Copywrite 2013 Brandon Jones, Colin MacKenzie IV licensed under
+ * the zlib license.
+ * https://raw.githubusercontent.com/toji/gl-matrix/master/LICENSE.md
+ *
+ * color-strings is Copywrite 2011 Heather Arthur licensed under the MIT
+ * license.
+ * https://raw.githubusercontent.com/harthur/color-string/master/LICENSE
+ */
+
