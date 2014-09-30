@@ -1,6 +1,15 @@
 SOURCES := \
 	src/preamble.txt \
 	webgl-shader-loader/webGLShaderLoader.js \
+	prims/tetrahedron.js \
+	prims/cube.js \
+	prims/octahedron.js \
+	prims/dodecahedron.js \
+	prims/icosahedron.js \
+	prims/cylinder.js \
+	prims/cone.js \
+	prims/sphere.js \
+	prims/torus.js \
 	prims/sierpinski.js \
 	document-register-element/build/document-register-element.max.js \
 	gl-matrix/src/gl-matrix/common.js \

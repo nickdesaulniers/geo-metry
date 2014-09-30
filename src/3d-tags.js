@@ -42,8 +42,20 @@ void main () {\n\
   }\n\
 }';
 
-var loader, aspectRatio, color, normals; // :(
+var loader, aspectRatio, color = null, normals, prim; // :(
 var d = degPerPeriod(10);
+var primLookup = {
+  tetrahedron: Tetrahedron,
+  hexahedron: Cube,
+  octahedron: Octahedron,
+  dodecahedron: Dodecahedron,
+  icosahedron: Icosahedron,
+  cylinder: Cylinder,
+  cone: Cone,
+  sphere: Sphere,
+  torus: Torus,
+  sierpinski: Sierpinski,
+};
 
 function glCreated (errors, program, gl) {
   if (errors.length) return console.error.apply(console, errors);
@@ -72,7 +84,7 @@ function glCreated (errors, program, gl) {
 };
 function generateGeometry (gl, program, cb) {
   var attributes = loader.getAttributes(gl, program);
-  var geometry = Sierpinski();
+  var geometry = prim();
   initBuffer(gl, gl.ARRAY_BUFFER, new Float32Array(geometry.vertices), 3, attributes.aPosition);
   initBuffer(gl, gl.ARRAY_BUFFER, new Float32Array(geometry.normals), 3, attributes.aNormal);
   initBuffer(gl, gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(geometry.indices));
@@ -93,7 +105,7 @@ function setUniforms (gl, uniforms) {
   gl.uniformMatrix4fv(uniforms.uModel, false, modelMatrix);
   gl.uniformMatrix4fv(uniforms.uView, false, createViewMatrix());
   gl.uniformMatrix4fv(uniforms.uProj, false, createProjMatrix());
-  if (color.length) {
+  if (color) {
     gl.uniform4fv(uniforms.uColor, color);
   } else {
     gl.uniform1i(uniforms.uShowNormals, true);
@@ -140,6 +152,12 @@ function created () {
     normals = false;
   } else {
     normals = true;
+  }
+
+  if (this.hasAttribute('prim')) {
+    prim = primLookup[this.getAttribute('prim')] || primLookup.sierpinski;
+  } else {
+    prim = primLookup.sierpinski;
   }
 
   var gl = canvas.getContext('webgl', { preserveDrawingBuffer: true, });
