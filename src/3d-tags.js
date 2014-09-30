@@ -20,6 +20,7 @@ void main () {\n\
 var fragmentShaderSrc = '\
 precision mediump float;\n\
 \n\
+uniform bool uShowNormals;\n\
 uniform vec4 uColor;\n\
 varying vec3 vNormal;\n\
 varying vec3 vPosition;\n\
@@ -33,12 +34,15 @@ void main () {\n\
   vec3 l = lightPosition - vPosition;\n\
 \n\
   float nDotL = clamp(dot(n, normalize(l)) / length(l) * 2.0, 0.0, 1.0);\n\
-  vec3 color = abs(n);\n\
 \n\
-  gl_FragColor = uColor;\n\
+  if (uShowNormals) {\n\
+    gl_FragColor = vec4(abs(n), 1.0);\n\
+  } else {\n\
+    gl_FragColor = uColor;\n\
+  }\n\
 }';
 
-var loader, aspectRatio, color; // :(
+var loader, aspectRatio, color, normals; // :(
 var d = degPerPeriod(10);
 
 function glCreated (errors, program, gl) {
@@ -49,7 +53,6 @@ function glCreated (errors, program, gl) {
 
   var uniforms = loader.getUniforms(gl, program);
   var modelMatrix = setUniforms(gl, uniforms);
-  gl.uniform4fv(uniforms.uColor, color);
 
   gl.clearColor(0.0, 0.0, 0.0, 0.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
@@ -90,6 +93,11 @@ function setUniforms (gl, uniforms) {
   gl.uniformMatrix4fv(uniforms.uModel, false, modelMatrix);
   gl.uniformMatrix4fv(uniforms.uView, false, createViewMatrix());
   gl.uniformMatrix4fv(uniforms.uProj, false, createProjMatrix());
+  if (color.length) {
+    gl.uniform4fv(uniforms.uColor, color);
+  } else {
+    gl.uniform1i(uniforms.uShowNormals, true);
+  }
   return modelMatrix;
 };
 function createModelMatrix () {
@@ -124,7 +132,16 @@ function created () {
   canvas.height = height;
   aspectRatio = width / height;
 
-  color = colorString.getRgba(this.getAttribute('color'));
+  if (this.hasAttribute('color')) {
+    color = colorString.getRgba(this.getAttribute('color'));
+    color[0] /= 255;
+    color[1] /= 255;
+    color[2] /= 255;
+    color[3] = 1.0;
+    normals = false;
+  } else {
+    normals = true;
+  }
 
   var gl = canvas.getContext('webgl', { preserveDrawingBuffer: true, });
   loader = new WebGLShaderLoader(gl);
